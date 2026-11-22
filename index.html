@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8" />
+  <title>Win98 Vindue</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #008080; /* Klassisk Win98 teal-baggrund */
+      font-family: "MS Sans Serif", Tahoma, Arial, sans-serif;
+      font-size: 12px;
+      overflow: hidden;
+    }
+
+    .win98-window {
+      position: absolute;
+      top: 60px;
+      left: 60px;
+      width: 340px;
+      background: #c0c0c0;
+      padding: 3px;
+      /* Udadvendt 3D-ramme */
+      box-shadow:
+        inset 1px 1px 0 #ffffff,
+        inset -1px -1px 0 #808080,
+        2px 2px 0 #000000;
+    }
+
+    .win98-titlebar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(90deg, #000080, #1084d0);
+      color: #ffffff;
+      font-weight: bold;
+      padding: 3px 4px;
+      cursor: grab;
+      user-select: none;
+    }
+
+    .win98-titlebar:active {
+      cursor: grabbing;
+    }
+
+    .win98-btn {
+      background: #c0c0c0;
+      color: #000000;
+      border: none;
+      width: 18px;
+      height: 18px;
+      font-size: 11px;
+      font-weight: bold;
+      line-height: 1;
+      cursor: pointer;
+      box-shadow:
+        inset 1px 1px 0 #ffffff,
+        inset -1px -1px 0 #808080,
+        1px 1px 0 #000000;
+    }
+
+    .win98-btn:active {
+      /* Indtrykket knap */
+      box-shadow:
+        inset 1px 1px 0 #808080,
+        inset -1px -1px 0 #ffffff;
+      padding-top: 2px;
+      padding-left: 2px;
+    }
+
+    .win98-body {
+      padding: 12px;
+    }
+
+    .win98-inset-box {
+      background: #ffffff;
+      padding: 8px;
+      margin-bottom: 12px;
+      box-shadow:
+        inset 1px 1px 0 #808080,
+        inset 2px 2px 0 #000000,
+        inset -1px -1px 0 #ffffff;
+    }
+
+    .win98-action-btn {
+      background: #c0c0c0;
+      border: none;
+      padding: 5px 14px;
+      cursor: pointer;
+      box-shadow:
+        inset 1px 1px 0 #ffffff,
+        inset -1px -1px 0 #808080,
+        1px 1px 0 #000000;
+    }
+
+    .win98-action-btn:active {
+      box-shadow:
+        inset 1px 1px 0 #808080,
+        inset -1px -1px 0 #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <div class="win98-window" id="win98">
+    <div class="win98-titlebar" id="win98-drag">
+      <span>Velkommen.exe</span>
+      <button class="win98-btn" id="win98-close" title="Luk">✕</button>
+    </div>
+    <div class="win98-body">
+      <div class="win98-inset-box">
+        Hej fra 1998! Træk i den blå bjælke for at flytte vinduet.
+      </div>
+      <button class="win98-action-btn" id="win98-ping">OK</button>
+    </div>
+  </div>
+
+  <script>
+    const win = document.getElementById("win98");
+    const dragHandle = document.getElementById("win98-drag");
+    let offsetX = 0, offsetY = 0, isDragging = false;
+
+    dragHandle.addEventListener("mousedown", (e) => {
+      if (e.target.closest("button")) return;
+      isDragging = true;
+      offsetX = e.clientX - win.offsetLeft;
+      offsetY = e.clientY - win.offsetTop;
+    });
+
+    document.addEventListener("mousemove", (e) => {
+      if (!isDragging) return;
+      win.style.left = `${e.clientX - offsetX}px`;
+      win.style.top = `${e.clientY - offsetY}px`;
+    });
+
+    document.addEventListener("mouseup", () => {
+      isDragging = false;
+    });
+
+    document.getElementById("win98-close").addEventListener("click", () => {
+      win.style.display = "none";
+    });
+
+    document.getElementById("win98-ping").addEventListener("click", () => {
+      alert("Systemet kører fejlfrit (næsten).");
+    });
+  </script>
+</body>
+</html>
