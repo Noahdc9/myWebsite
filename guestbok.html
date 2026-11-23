@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gæstebog</title>
+  <style>
+    body { font-family: "Courier New", monospace; background: #101010; color: #33ff66;
+           max-width: 640px; margin: 2rem auto; padding: 0 1rem; }
+    h1 { border-bottom: 2px dashed #33ff66; padding-bottom: .5rem; }
+    input, textarea, button { font: inherit; background: #000; color: #33ff66;
+           border: 1px solid #33ff66; padding: .4rem; width: 100%; box-sizing: border-box; margin-bottom: .6rem; }
+    button { cursor: pointer; width: auto; padding: .4rem 1rem; }
+    button:hover { background: #33ff66; color: #000; }
+    .msg { border-left: 3px solid #33ff66; padding-left: .6rem; margin: 1rem 0; }
+    .meta { opacity: .6; font-size: .85em; }
+    #status { min-height: 1.2em; }
+  </style>
+</head>
+<body>
+  <h1>&gt; GÆSTEBOG_</h1>
+
+  <form id="form">
+    <input id="name" placeholder="Dit navn" maxlength="50" required>
+    <textarea id="text" placeholder="Skriv en besked..." rows="3" maxlength="500" required></textarea>
+    <button type="submit">Send</button>
+    <div id="status"></div>
+  </form>
+
+  <div id="messages"></div>
+
+  <script>
+    const form = document.getElementById('form');
+    const list = document.getElementById('messages');
+    const status = document.getElementById('status');
+
+    async function load() {
+      try {
+        const res = await fetch('/api/messages');
+        const messages = await res.json();
+        list.replaceChildren();
+        for (const m of messages) {
+          const div = document.createElement('div');
+          div.className = 'msg';
+
+          const meta = document.createElement('div');
+          meta.className = 'meta';
+          meta.textContent = m.name + ' · ' + m.created;
+
+          const body = document.createElement('div');
+          body.textContent = m.text;   // textContent, ikke innerHTML
+
+          div.append(meta, body);
+          list.append(div);
+        }
+      } catch (e) {
+        status.textContent = 'Kunne ikke hente beskeder.';
+      }
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      status.textContent = 'Sender...';
+      try {
+        const res = await fetch('/api/messages', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: document.getElementById('name').value,
+            text: document.getElementById('text').value
+          })
+        });
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          status.textContent = err.error || 'Noget gik galt.';
+          return;
+        }
+        document.getElementById('text').value = '';
+        status.textContent = 'Sendt!';
+        load();
+      } catch (e) {
+        status.textContent = 'Kunne ikke sende.';
+      }
+    });
+
+    load();
+  </script>
+</body>
+</html>
