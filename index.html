@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="da">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Noahs side</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
   <!-- Vindue 1: Startvindue med knap til at åbne gæstebogen -->
   <div class="win98-window" id="win98-main" style="top: 50px; left: 50px;">
     <div class="win98-titlebar">
-      <span>Velkommen.exe</span>
+      <span>Velkommen</span>
       <button class="win98-btn win98-close-btn" title="Luk">✕</button>
     </div>
     <div class="win98-body">
@@ -18,12 +20,11 @@
         Hai:3
       </div>
       <div class="win98-btn-row">
-        <button
-          type="button"
-          class="win98-action-btn win98-action-btn--primary"
-          id="open-guestbook-btn"
-        >
+        <button type="button" class="win98-action-btn win98-action-btn--primary" id="open-guestbook-btn">
           Åbn Gæstebog
+        </button>
+        <button type="button" class="win98-action-btn win98-action-btn--primary" id="open-settings-btn">
+          Indstillinger
         </button>
       </div>
     </div>
@@ -33,30 +34,18 @@
   <template id="guestbook-window-template">
     <div class="win98-window win98-window--guestbook" id="win98-guestbook">
       <div class="win98-titlebar">
-        <span>Gæstebog.exe</span>
+        <span>Gæstebog</span>
         <button type="button" class="win98-btn win98-close-btn" title="Luk">✕</button>
       </div>
 
       <div class="win98-body">
         <form id="form" class="guestbook-form">
           <label for="name" class="guestbook-label">Navn:</label>
-          <input
-            id="name"
-            class="win98-input"
-            placeholder="Dit navn"
-            maxlength="50"
-            required
-          />
+          <input id="name" class="win98-input" placeholder="Dit navn" maxlength="50" required />
 
           <label for="text" class="guestbook-label">Besked:</label>
-          <textarea
-            id="text"
-            class="win98-textarea"
-            placeholder="Skriv en besked..."
-            rows="3"
-            maxlength="500"
-            required
-          ></textarea>
+          <textarea id="text" class="win98-textarea" placeholder="Skriv en besked..." rows="3" maxlength="500"
+            required></textarea>
 
           <div class="win98-btn-row">
             <button type="submit" class="win98-action-btn win98-action-btn--primary">
@@ -72,6 +61,37 @@
     </div>
   </template>
 
+
+  <!--Vindue 3 - Indstillinger-->
+  <template id="settings-window-template">
+    <div class="win98-window win98-window--settings" id="win98-settings">
+      <div class="win98-titlebar">
+        <span>Indstillinger</span>
+        <button type="button" class="win98-btn win98-close-btn" title="Luk">✕</button>
+      </div>
+
+      <div class="win98-body">
+        <form id="settings-form">
+          <label for="bg-preset" class="settings-label"> Skrivebordsbaggrund:</label>
+          <select id="bg-preset" class="win98-input">
+            <option value="#008080">Win98 Teal (#008080)</option>
+            <option value="#000080">Klassisk Blå (#000080)</option>
+            <option value="#3a6ea5">Windows XP Blå (#3a6ea5)</option>
+            <option value="#008000">Skovgrøn (#008000)</option>
+            <option value="#202020">Mørk Grå (#202020)</option>
+
+          </select>
+          <label for="bg-custom" class="settings-label">Eller vælg egen farve:</label>
+          <input type="color" id="bg-custom" value="#008080" class="settings-color" />
+          <div class="win98-btn-row">
+            <button type="submit" class="win98-action-btn win98-action-btn--primary">
+              Anvend
+            </button>
+        </form>
+      </div>
+  </template>
+
   <script src="app.js" defer></script>
 </body>
+
 </html>

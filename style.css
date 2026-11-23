@@ -40,7 +40,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: linear-gradient(90deg, #000080, #1084d0);
+  background: linear-gradient(90deg, #004480, #1084d0);
   color: #ffffff;
   font-weight: bold;
   padding: 3px 4px;
@@ -106,4 +106,21 @@ body {
   box-shadow:
     inset 1px 1px 0 #808080,
     inset -1px -1px 0 #ffffff;
+}.settings-label {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.settings-color {
+  width: 100%;
+  height: 28px;
+  padding: 2px;
+  background: var(--win-light);
+  border: none;
+  margin-bottom: 12px;
+  cursor: pointer;
+  box-shadow:
+    inset 1px 1px 0 var(--win-shadow),
+    inset 2px 2px 0 var(--win-dark),
+    inset -1px -1px 0 var(--win-light);
 }

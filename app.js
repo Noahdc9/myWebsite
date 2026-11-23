@@ -9,12 +9,10 @@ function setupWindow(winEl) {
   const dragHandle = winEl.querySelector(".win98-titlebar");
   const closeBtn = winEl.querySelector(".win98-close-btn");
 
-  // Bring vinduet forrest ved klik hvor som helst i vinduet
   winEl.addEventListener("mousedown", () => {
     focusWindow(winEl);
   });
 
-  // Luk vinduet uden at slette det fra DOM'en
   if (closeBtn) {
     closeBtn.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -22,7 +20,6 @@ function setupWindow(winEl) {
     });
   }
 
-  // Drag-and-drop på titelbjælken
   if (dragHandle) {
     let offsetX = 0;
     let offsetY = 0;
@@ -143,5 +140,86 @@ openGuestbookBtn.addEventListener("click", () => {
   if (!guestbookInitialized) {
     initGuestbookLogic(guestbookWin);
     guestbookInitialized = true;
+  }
+});
+
+// Indstillinger-vindue
+const bgKey = "win98-desktop-bg";
+const defaultBg = "#008080";
+const openSettingsBtn = document.getElementById("open-settings-btn");
+const settingsTemplate = document.getElementById("settings-window-template");
+
+function changeDesktopColor(color) {
+  document.body.style.background = color;
+  localStorage.setItem(bgKey, color);
+}
+
+// Anvend gemt farve ved sideindlæsning
+const savedBg = localStorage.getItem(bgKey) || defaultBg;
+document.body.style.background = savedBg;
+
+let settingsWin = null;
+let settingsInitialized = false;
+
+function initSettingsLogic(winEl) {
+  const form = winEl.querySelector("#settings-form");
+  const presetSelect = winEl.querySelector("#bg-preset");
+  const colorInput = winEl.querySelector("#bg-custom");
+  const resetBtn = winEl.querySelector("#reset-bg-btn");
+
+  const currentBg = localStorage.getItem(bgKey) || defaultBg;
+  if (colorInput) {
+    colorInput.value = currentBg;
+  }
+  if (presetSelect && [...presetSelect.options].some((opt) => opt.value === currentBg)) {
+    presetSelect.value = currentBg;
+  }
+
+  if (presetSelect && colorInput) {
+    presetSelect.addEventListener("change", () => {
+      colorInput.value = presetSelect.value;
+    });
+
+    colorInput.addEventListener("input", () => {
+      const match = [...presetSelect.options].find(
+        (opt) => opt.value.toLowerCase() === colorInput.value.toLowerCase()
+      );
+      if (match) {
+        presetSelect.value = match.value;
+      }
+    });
+  }
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const chosenColor = colorInput ? colorInput.value : presetSelect.value;
+    changeDesktopColor(chosenColor);
+  });
+
+  if (resetBtn) {
+    resetBtn.addEventListener("click", () => {
+      if (colorInput) colorInput.value = defaultBg;
+      if (presetSelect) presetSelect.value = defaultBg;
+      changeDesktopColor(defaultBg);
+    });
+  }
+}
+
+openSettingsBtn.addEventListener("click", () => {
+  if (!settingsWin) {
+    const clone = settingsTemplate.content.cloneNode(true);
+    document.body.appendChild(clone);
+    settingsWin = document.getElementById("win98-settings");
+    settingsWin.style.top = "80px";
+    settingsWin.style.left = "220px";
+    setupWindow(settingsWin);
+  }
+
+  settingsWin.classList.remove("win98-window--hidden");
+  focusWindow(settingsWin);
+
+  if (!settingsInitialized) {
+    initSettingsLogic(settingsWin);
+    settingsInitialized = true;
   }
 });
