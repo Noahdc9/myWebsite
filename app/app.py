@@ -4,6 +4,7 @@ from flask import Flask, jsonify, request
 app = Flask(__name__)
 DB = os.environ.get("DB_PATH", "/data/site.db")
 
+app.config["MAX_CONTENT_LENGTH"] = 10_000
 def db():
     con = sqlite3.connect(DB)
     con.row_factory = sqlite3.Row
@@ -25,6 +26,8 @@ def add_message():
     data = request.get_json(silent=True) or {}
     name = str(data.get("name", "")).strip()[:50]
     text = str(data.get("text", "")).strip()[:500]
+    if data.get("website"):
+        return jsonify(ok=True), 201   # pretend success, store nothing
     if not name or not text:
         return jsonify(error="name og text skal udfyldes"), 400
     with db() as con:
