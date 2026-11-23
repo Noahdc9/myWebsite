@@ -43,13 +43,17 @@ body {
 .win98-titlebar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  text-align: center;
+  justify-content: center;
   background: linear-gradient(90deg, #004480, #1084d0);
   color: #ffffff;
   font-weight: bold;
   padding: 3px 4px;
   cursor: grab;
   user-select: none;
+}.win98-close-btn {
+  position: absolute;
+  right: 4px;              /* Juster afstanden til højre kant */
 }
 
 .win98-titlebar:active {

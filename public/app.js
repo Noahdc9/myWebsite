@@ -62,7 +62,10 @@ focusWindow(mainWin);
 // Gæstebogsvindue via <template>
 const openGuestbookBtn = document.getElementById("open-guestbook-btn");
 const guestbookTemplate = document.getElementById("guestbook-window-template");
-
+const goBackBtn = document.getElementById("go-back-btn");
+goBackBtn.addEventListener("click", ()=>{
+  window.location.href = "index.html"
+})
 let guestbookWin = null;
 let guestbookInitialized = false;
 
