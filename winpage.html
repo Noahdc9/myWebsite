@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Noahs side</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- Vindue 1: Startvindue med knap til at åbne gæstebogen -->
+  <div class="win98-window" id="win98-main" style="top: 50px; left: 50px;">
+    <div class="win98-titlebar">
+      <span>Velkommen</span>
+      <button class="win98-btn win98-close-btn" title="Luk">✕</button>
+    </div>
+    <div class="win98-body">
+      <div class="win98-inset-box">
+        Hai:3
+      </div>
+      <div class="win98-btn-row">
+        <button type="button" class="win98-action-btn win98-action-btn--primary" id="open-guestbook-btn">
+          Åbn Gæstebog
+        </button>
+        <button type="button" class="win98-action-btn win98-action-btn--primary" id="open-settings-btn">
+          Indstillinger
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Skabelon til Vindue 2: Gæstebog / chatboks -->
+  <template id="guestbook-window-template">
+    <div class="win98-window win98-window--guestbook" id="win98-guestbook">
+      <div class="win98-titlebar">
+        <span>Gæstebog</span>
+        <button type="button" class="win98-btn win98-close-btn" title="Luk">✕</button>
+      </div>
+
+      <div class="win98-body">
+        <form id="form" class="guestbook-form">
+          <label for="name" class="guestbook-label">Navn:</label>
+          <input id="name" class="win98-input" placeholder="Dit navn" maxlength="50" required />
+
+          <label for="text" class="guestbook-label">Besked:</label>
+          <p></p>
+          <textarea id="text" class="win98-textarea" placeholder="Skriv en besked..." rows="3" maxlength="500"
+            required></textarea>
+
+          <div class="win98-btn-row">
+            <button type="submit" class="win98-action-btn win98-action-btn--primary">
+              Send
+            </button>
+            <span id="status" class="guestbook-status" aria-live="polite"></span>
+          </div>
+        </form>
+
+        <div class="guestbook-section-title">Beskeder:</div>
+        <div id="messages" class="win98-inset-box guestbook-messages"></div>
+      </div>
+    </div>
+  </template>
+
+
+  <!--Vindue 3 - Indstillinger-->
+  <template id="settings-window-template">
+    <div class="win98-window win98-window--settings" id="win98-settings">
+      <div class="win98-titlebar">
+        <span>Indstillinger</span>
+        <button type="button" class="win98-btn win98-close-btn" title="Luk">✕</button>
+      </div>
+
+      <div class="win98-body">
+        <label for="bg-preset" class="settings-label"> Skrivebordsbaggrund:</label>
+        <form id="settings-bg-form">
+          <label for="bg-custom" class="settings-label">Vælg øverste farve i gradient:</label>
+          <input type="color" id="bg-custom" value="#008080" class="settings-color" />
+          <div class="win98-btn-row">
+            <p></p>
+        </form>
+        <p></p>
+        <form id="settings-bg-2-form">
+          <label for="bg-2-custom" class="settings-label">Vælg nederste farve i gradient:</label>
+          <input type="color" id="bg-2-custom" value="#008080" class="settings-color" />
+          <div class="win98-btn-row">
+            <p></p>
+        </form>
+        <form id="settings-text-form">
+          <p></p>
+          <label for="text-preset" class="settings-label">Tekstfarve:</label>
+          <label for="bg-custom" class="settings-label">Vælg din egen farve:</label>
+
+          <input type="color" id="text-custom" value="#008080" class="settings-color" />
+          <div class="win98-btn-row">
+
+          </div>
+        </form>
+        <button type="submit" id="save-settings-button" class="win98-action-btn win98-action-btn--primary">
+          Anvend
+        </button>
+      </div>
+  </template>
+
+  <script src="app.js" defer></script>
+</body>
+
+</html>
