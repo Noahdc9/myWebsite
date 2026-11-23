@@ -1,27 +1,77 @@
 <!DOCTYPE html>
 <html lang="da">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Noahs hjemmeside:p</title>
+  <title>Noahs side</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="win98-window" id="win98">
-    <div class="win98-titlebar" id="win98-drag">
-      <span>Velkommen</span>
-      <button class="win98-btn" id="win98-close" title="Luk">✕</button>
+  <!-- Vindue 1: Startvindue med knap til at åbne gæstebogen -->
+  <div class="win98-window" id="win98-main" style="top: 50px; left: 50px;">
+    <div class="win98-titlebar">
+      <span>Velkommen.exe</span>
+      <button class="win98-btn win98-close-btn" title="Luk">✕</button>
     </div>
     <div class="win98-body">
       <div class="win98-inset-box">
-        h
+        Hai:3
       </div>
-      <button class="win98-action-btn" id="openChatBtn">Chat</button>
-      <button class="win98-action-btn" id="settingsBtn">Indstillinger</button>
-
+      <div class="win98-btn-row">
+        <button
+          type="button"
+          class="win98-action-btn win98-action-btn--primary"
+          id="open-guestbook-btn"
+        >
+          Åbn Gæstebog
+        </button>
+      </div>
     </div>
   </div>
 
-  <script src="boxes.js" defer></script>
+  <!-- Skabelon til Vindue 2: Gæstebog / chatboks -->
+  <template id="guestbook-window-template">
+    <div class="win98-window win98-window--guestbook" id="win98-guestbook">
+      <div class="win98-titlebar">
+        <span>Gæstebog.exe</span>
+        <button type="button" class="win98-btn win98-close-btn" title="Luk">✕</button>
+      </div>
+
+      <div class="win98-body">
+        <form id="form" class="guestbook-form">
+          <label for="name" class="guestbook-label">Navn:</label>
+          <input
+            id="name"
+            class="win98-input"
+            placeholder="Dit navn"
+            maxlength="50"
+            required
+          />
+
+          <label for="text" class="guestbook-label">Besked:</label>
+          <textarea
+            id="text"
+            class="win98-textarea"
+            placeholder="Skriv en besked..."
+            rows="3"
+            maxlength="500"
+            required
+          ></textarea>
+
+          <div class="win98-btn-row">
+            <button type="submit" class="win98-action-btn win98-action-btn--primary">
+              Send
+            </button>
+            <span id="status" class="guestbook-status" aria-live="polite"></span>
+          </div>
+        </form>
+
+        <div class="guestbook-section-title">Beskeder:</div>
+        <div id="messages" class="win98-inset-box guestbook-messages"></div>
+      </div>
+    </div>
+  </template>
+
+  <script src="app.js" defer></script>
 </body>
 </html>

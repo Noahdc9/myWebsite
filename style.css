@@ -1,3 +1,16 @@
+:root {
+  --win-bg: #c0c0c0;
+  --win-light: #ffffff;
+  --win-shadow: #808080;
+  --win-dark: #000000;
+  --title-active-start: #000080;
+  --title-active-end: #1084d0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   height: 100vh;
@@ -19,6 +32,8 @@ body {
     inset 1px 1px 0 #ffffff,
     inset -1px -1px 0 #808080,
     2px 2px 0 #000000;
+}.win98-window--hidden{
+    display:none;  
 }
 
 .win98-titlebar {
