@@ -62,7 +62,7 @@ let guestbookWin = null;
 let guestbookInitialized = false;
 
 function initGuestbookLogic(winEl) {
-  const form = winEl.querySelector("#form");
+  const formBg = winEl.querySelector("#formBg");
   const nameInput = winEl.querySelector("#name");
   const textInput = winEl.querySelector("#text");
   const list = winEl.querySelector("#messages");
@@ -93,7 +93,7 @@ function initGuestbookLogic(winEl) {
     }
   }
 
-  form.addEventListener("submit", async (e) => {
+  formBg.addEventListener("submit", async (e) => {
     e.preventDefault();
     status.textContent = "Sender...";
 
@@ -145,62 +145,115 @@ openGuestbookBtn.addEventListener("click", () => {
 
 // Indstillinger-vindue
 const bgKey = "win98-desktop-bg";
+const txtKey = "win98-text";
+const defaultTxt = "#000000";
 const defaultBg = "#008080";
 const openSettingsBtn = document.getElementById("open-settings-btn");
 const settingsTemplate = document.getElementById("settings-window-template");
 
-function changeDesktopColor(color) {
+function changeDesktopColor(color, save = false) {
+  if (!color) return;
   document.body.style.background = color;
-  localStorage.setItem(bgKey, color);
+  if (save) {
+    localStorage.setItem(bgKey, color);
+  }
 }
 
-// Anvend gemt farve ved sideindlæsning
+function changeTextColor(color, save = true) {
+  if (!color) return;
+  document.body.style.color = color;
+  if (save) {
+    localStorage.setItem(txtKey, color);
+  }
+}
+
+// Anvend gemte farver ved sideindlæsning
 const savedBg = localStorage.getItem(bgKey) || defaultBg;
-document.body.style.background = savedBg;
+const savedTxt = localStorage.getItem(txtKey) || defaultTxt;
+changeDesktopColor(savedBg, false);
+changeTextColor(savedTxt, false);
 
 let settingsWin = null;
 let settingsInitialized = false;
 
 function initSettingsLogic(winEl) {
-  const form = winEl.querySelector("#settings-form");
-  const presetSelect = winEl.querySelector("#bg-preset");
-  const colorInput = winEl.querySelector("#bg-custom");
-  const resetBtn = winEl.querySelector("#reset-bg-btn");
-
+  const formBg = winEl.querySelector("#settings-bg-form");
+  const presetSelectBg = winEl.querySelector("#bg-preset");
+  const colorInputBg = winEl.querySelector("#bg-custom");
   const currentBg = localStorage.getItem(bgKey) || defaultBg;
-  if (colorInput) {
-    colorInput.value = currentBg;
-  }
-  if (presetSelect && [...presetSelect.options].some((opt) => opt.value === currentBg)) {
-    presetSelect.value = currentBg;
-  }
 
-  if (presetSelect && colorInput) {
-    presetSelect.addEventListener("change", () => {
-      colorInput.value = presetSelect.value;
-    });
+  const formTxt = winEl.querySelector("#settings-text-form");
+  const presetSelectTxt = winEl.querySelector("#text-preset");
+  const colorInputTxt = winEl.querySelector("#text-custom");
+  const currentTxt = localStorage.getItem(txtKey) || defaultTxt;
 
-    colorInput.addEventListener("input", () => {
-      const match = [...presetSelect.options].find(
-        (opt) => opt.value.toLowerCase() === colorInput.value.toLowerCase()
-      );
-      if (match) {
-        presetSelect.value = match.value;
+  // Sæt startværdier til den aktuelle gemte baggrundsfarve
+  if (colorInputBg) {
+    colorInputBg.value = currentBg;
+    colorInputBg.addEventListener("input", () => {
+      changeDesktopColor(colorInputBg.value, false);
+      if (presetSelectBg) {
+        const match = [...presetSelectBg.options].find(
+          (opt) => opt.value.toLowerCase() === colorInputBg.value.toLowerCase()
+        );
+        presetSelectBg.value = match ? match.value : "";
       }
     });
   }
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const chosenColor = colorInput ? colorInput.value : presetSelect.value;
-    changeDesktopColor(chosenColor);
-  });
+  if (presetSelectBg) {
+    const match = [...presetSelectBg.options].find(
+      (opt) => opt.value.toLowerCase() === currentBg.toLowerCase()
+    );
+    if (match) presetSelectBg.value = match.value;
 
-  if (resetBtn) {
-    resetBtn.addEventListener("click", () => {
-      if (colorInput) colorInput.value = defaultBg;
-      if (presetSelect) presetSelect.value = defaultBg;
-      changeDesktopColor(defaultBg);
+    presetSelectBg.addEventListener("change", () => {
+      if (!presetSelectBg.value) return;
+      if (colorInputBg) colorInputBg.value = presetSelectBg.value;
+      changeDesktopColor(presetSelectBg.value, false);
+    });
+  }
+
+  if (formBg) {
+    formBg.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const chosenColor = colorInputBg?.value || presetSelectBg?.value;
+      changeDesktopColor(chosenColor, true);
+    });
+  }
+
+  // Tekstfarve-valg
+  if (colorInputTxt) {
+    colorInputTxt.value = currentTxt;
+    colorInputTxt.addEventListener("input", () => {
+      changeTextColor(colorInputTxt.value, false);
+      if (presetSelectTxt) {
+        const match = [...presetSelectTxt.options].find(
+          (opt) => opt.value.toLowerCase() === colorInputTxt.value.toLowerCase()
+        );
+        presetSelectTxt.value = match ? match.value : "";
+      }
+    });
+  }
+
+  if (presetSelectTxt) {
+    const match = [...presetSelectTxt.options].find(
+      (opt) => opt.value.toLowerCase() === currentTxt.toLowerCase()
+    );
+    if (match) presetSelectTxt.value = match.value;
+
+    presetSelectTxt.addEventListener("change", () => {
+      if (!presetSelectTxt.value) return;
+      if (colorInputTxt) colorInputTxt.value = presetSelectTxt.value;
+      changeTextColor(presetSelectTxt.value, false);
+    });
+  }
+
+  if (formTxt) {
+    formTxt.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const chosenColor = colorInputTxt?.value || presetSelectTxt?.value;
+      changeTextColor(chosenColor, true);
     });
   }
 }

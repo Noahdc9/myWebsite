@@ -28,6 +28,7 @@ body {
   background: #c0c0c0;
   padding: 3px;
   /* Udadvendt 3D-ramme */
+  word-wrap: break-word;
   box-shadow:
     inset 1px 1px 0 #ffffff,
     inset -1px -1px 0 #808080,
