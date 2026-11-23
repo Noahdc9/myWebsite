@@ -1,0 +1,151 @@
+:root {
+  --win-bg: #c0c0c0;
+  --win-light: #ffffff;
+  --win-shadow: #808080;
+  --win-dark: #000000;
+  --title-active-start: #000080;
+  --title-active-end: #1084d0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  /* Klassisk Win98 teal-baggrund */
+  background-image: linear-gradient(#008080, #e8cbd6);
+  font-family: "MS Sans Serif", Tahoma, Arial, sans-serif;
+  font-size: 12px;
+  overflow: hidden;
+}
+
+.win98-window {
+  position: absolute;
+  top: 60px;
+  left: 60px;
+  width: 340px;
+  background: #c0c0c0;
+  padding: 3px;
+  /* Udadvendt 3D-ramme */
+  word-wrap: break-word;
+  box-shadow:
+    inset 1px 1px 0 #ffffff,
+    inset -1px -1px 0 #808080,
+    2px 2px 0 #000000;
+}
+
+.win98-window--hidden {
+  display: none;
+}
+
+.win98-titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(90deg, #004480, #1084d0);
+  color: #ffffff;
+  font-weight: bold;
+  padding: 3px 4px;
+  cursor: grab;
+  user-select: none;
+}
+
+.win98-titlebar:active {
+  cursor: grabbing;
+}
+
+.win98-btn {
+  background: #c0c0c0;
+  color: #000000;
+  border: none;
+  width: 18px;
+  height: 18px;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow:
+    inset 1px 1px 0 #ffffff,
+    inset -1px -1px 0 #808080,
+    1px 1px 0 #000000;
+}
+
+.win98-btn:active {
+  /* Indtrykket knap */
+  box-shadow:
+    inset 1px 1px 0 #808080,
+    inset -1px -1px 0 #ffffff;
+  padding-top: 2px;
+  padding-left: 2px;
+}
+
+.win98-body {
+  padding: 12px;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+}
+
+.win98-inset-box {
+  background: #ffffff;
+  padding: 8px;
+  margin-bottom: 12px;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+  box-shadow:
+    inset 1px 1px 0 #808080,
+    inset 2px 2px 0 #000000,
+    inset -1px -1px 0 #ffffff;
+}
+
+.win98-action-btn {
+  background: #c0c0c0;
+  border: none;
+  padding: 5px 14px;
+  cursor: pointer;
+  box-shadow:
+    inset 1px 1px 0 #ffffff,
+    inset -1px -1px 0 #808080,
+    1px 1px 0 #000000;
+}
+
+.win98-action-btn:active {
+  box-shadow:
+    inset 1px 1px 0 #808080,
+    inset -1px -1px 0 #ffffff;
+}
+
+.settings-label {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.win98-textarea {
+  height: 100px;
+  width: 200px;
+  min-width:50px;
+  min-height: 30px;
+  max-width: 100%;
+  max-height: 200px;
+}
+
+.settings-color {
+  width: 100%;
+  height: 28px;
+  padding: 2px;
+  background: var(--win-light);
+  border: none;
+  margin-bottom: 12px;
+  cursor: pointer;
+  box-shadow:
+    inset 1px 1px 0 var(--win-shadow),
+    inset 2px 2px 0 var(--win-dark),
+    inset -1px -1px 0 var(--win-light);
+}
+
+.guestbook-form {
+
+  height: auto;
+  width: auto;
+}
