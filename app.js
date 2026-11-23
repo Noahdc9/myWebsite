@@ -67,7 +67,7 @@ let guestbookWin = null;
 let guestbookInitialized = false;
 
 function initGuestbookLogic(winEl) {
-  const formBg = winEl.querySelector("#formBg");
+  const formBg = winEl.querySelector("#form");
   const nameInput = winEl.querySelector("#name");
   const textInput = winEl.querySelector("#text");
   const list = winEl.querySelector("#messages");
