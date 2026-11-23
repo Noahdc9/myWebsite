@@ -1,0 +1,10 @@
+name: noahserver
+
+services:
+  api:
+    build: ./app
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - /home/t1f/data:/data
+    restart: unless-stopped
