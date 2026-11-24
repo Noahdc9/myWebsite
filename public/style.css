@@ -18,7 +18,7 @@ body {
     font-size: 12px;
     overflow: hidden;
     background-color: #008080; /* Klassisk Win98-baggrundsfarve som fallback mens billedet indlæses */
-  background-image: url("backgroundtile.png");
+  background-image: url("imgs/backgroundtile_alt.png");
   background-repeat: repeat;
   background-position: top left;
 }
