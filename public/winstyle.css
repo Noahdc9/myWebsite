@@ -12,6 +12,7 @@
 }
 
 body {
+  cursor: url("imgs/winTheme/cursors/cursor_point.png") 0 14, auto;
   margin: 0;
   height: 100vh;
   /* Klassisk Win98 teal-baggrund */
@@ -19,6 +20,17 @@ body {
   font-family: "MS Sans Serif", Tahoma, Arial, sans-serif;
   font-size: 12px;
   overflow: hidden;
+}
+
+p,
+h1,
+h2,
+h3,
+span,
+label,
+input[type='text'],
+textarea {
+  cursor: url("imgs/winTheme/cursors/cursor_press.png") 10 8, auto;
 }
 
 .win98-window {
@@ -49,15 +61,18 @@ body {
   color: #ffffff;
   font-weight: bold;
   padding: 3px 4px;
-  cursor: grab;
+  cursor: url("imgs/winTheme/cursors/cursor_press.png") 10 8, grab;
   user-select: none;
-}.win98-close-btn {
+}
+
+.win98-close-btn {
   position: absolute;
-  right: 4px;              /* Juster afstanden til højre kant */
+  right: 4px;
+  /* Juster afstanden til højre kant */
 }
 
 .win98-titlebar:active {
-  cursor: grabbing;
+  cursor: url("imgs/winTheme/cursors/cursor_move.png") 10 24, move;
 }
 
 .win98-btn {
@@ -69,7 +84,7 @@ body {
   font-size: 11px;
   font-weight: bold;
   line-height: 1;
-  cursor: pointer;
+  cursor: url("imgs/winTheme/cursors/cursor_press.png") 10 8, grab;
   box-shadow:
     inset 1px 1px 0 #ffffff,
     inset -1px -1px 0 #808080,
@@ -83,6 +98,7 @@ body {
     inset -1px -1px 0 #ffffff;
   padding-top: 2px;
   padding-left: 2px;
+  cursor: url("imgs/winTheme/cursors/cursor_press.png") 10 8, grab;
 }
 
 .win98-body {
@@ -107,7 +123,7 @@ body {
   background: #c0c0c0;
   border: none;
   padding: 5px 14px;
-  cursor: pointer;
+  cursor: url("imgs/winTheme/cursors/cursor_press.png") 10 8, grab;
   box-shadow:
     inset 1px 1px 0 #ffffff,
     inset -1px -1px 0 #808080,
@@ -118,6 +134,8 @@ body {
   box-shadow:
     inset 1px 1px 0 #808080,
     inset -1px -1px 0 #ffffff;
+  cursor: url("imgs/winTheme/cursors/cursor_press.png") 10 8, grab;
+
 }
 
 .settings-label {
@@ -128,7 +146,7 @@ body {
 .win98-textarea {
   height: 100px;
   width: 200px;
-  min-width:50px;
+  min-width: 50px;
   min-height: 30px;
   max-width: 100%;
   max-height: 200px;
@@ -141,7 +159,7 @@ body {
   background: var(--win-light);
   border: none;
   margin-bottom: 12px;
-  cursor: pointer;
+  cursor: url("imgs/winTheme/cursors/cursor_point.png")0 14, pointer;
   box-shadow:
     inset 1px 1px 0 var(--win-shadow),
     inset 2px 2px 0 var(--win-dark),
