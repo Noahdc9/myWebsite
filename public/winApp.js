@@ -1,4 +1,7 @@
 let topZIndex = 1;
+let isOpen = false;
+const fileOpen = document.getElementById("winFile");
+
 
 function focusWindow(winEl) {
   topZIndex += 1;
@@ -8,9 +11,12 @@ function focusWindow(winEl) {
 function setupWindow(winEl) {
   const dragHandle = winEl.querySelector(".win98-titlebar");
   const closeBtn = winEl.querySelector(".win98-close-btn");
+  winEl.classList.add("win98-window--hidden");
+
 
   winEl.addEventListener("mousedown", () => {
     focusWindow(winEl);
+    filePressed = false;
   });
 
   if (closeBtn) {
@@ -19,6 +25,12 @@ function setupWindow(winEl) {
       winEl.classList.add("win98-window--hidden");
     });
   }
+  fileOpen.addEventListener("click", () => {
+    filePressed = true;
+    winEl.classList.remove("win98-window--hidden");
+
+  })
+
 
   if (dragHandle) {
     let offsetX = 0;
@@ -59,11 +71,12 @@ const mainWin = document.getElementById("win98-main");
 setupWindow(mainWin);
 focusWindow(mainWin);
 
+
 // Gæstebogsvindue via <template>
 const openGuestbookBtn = document.getElementById("open-guestbook-btn");
 const guestbookTemplate = document.getElementById("guestbook-window-template");
 const goBackBtn = document.getElementById("go-back-btn");
-goBackBtn.addEventListener("click", ()=>{
+goBackBtn.addEventListener("click", () => {
   window.location.href = "index.html"
 })
 let guestbookWin = null;
@@ -184,7 +197,7 @@ function changeTextColor(color, save = true) {
 const savedBg1 = localStorage.getItem(bgKey1) || defaultBg1;
 const savedBg2 = localStorage.getItem(bgKey2) || defaultBg2;
 const savedTxt = localStorage.getItem(txtKey) || defaultTxt;
-changeDesktopColor(savedBg1, savedBg2,false);
+changeDesktopColor(savedBg1, savedBg2, false);
 changeTextColor(savedTxt, false);
 
 let settingsWin = null;
@@ -193,7 +206,7 @@ let settingsInitialized = false;
 function initSettingsLogic(winEl) {
   const colorInputBg1 = winEl.querySelector("#bg-custom");
   const currentBg1 = localStorage.getItem(bgKey1) || defaultBg1;
-  
+
   const colorInputBg2 = winEl.querySelector("#bg-2-custom");
   const currentBg2 = localStorage.getItem(bgKey2) || defaultBg2;
 
@@ -201,27 +214,27 @@ function initSettingsLogic(winEl) {
   const currentTxt = localStorage.getItem(txtKey) || defaultTxt;
 
   const saveBtn = winEl.querySelector("#save-settings-button");
-  if (saveBtn){
-    saveBtn.addEventListener("click", (e)=>{
+  if (saveBtn) {
+    saveBtn.addEventListener("click", (e) => {
       e.preventDefault();
       const chosenBg1 = colorInputBg1?.value || defaultBg1;
-    const chosenBg2 = colorInputBg2?.value ||  defaultBg2;
-    const chosenTxt = colorInputTxt?.value ||  defaultTxt;
+      const chosenBg2 = colorInputBg2?.value || defaultBg2;
+      const chosenTxt = colorInputTxt?.value || defaultTxt;
 
-    changeDesktopColor(chosenBg1, chosenBg2, true);
-    changeTextColor(chosenTxt, true);
-    winEl.classList.add("win98-window--hidden");
+      changeDesktopColor(chosenBg1, chosenBg2, true);
+      changeTextColor(chosenTxt, true);
+      winEl.classList.add("win98-window--hidden");
     });
   }
   // Sæt startværdier til den aktuelle gemte baggrundsfarve
   if (colorInputBg1) {
     colorInputBg1.value = currentBg1;
     colorInputBg1.addEventListener("input", () => {
-      changeDesktopColor(colorInputBg1.value,colorInputBg2.value, false);
+      changeDesktopColor(colorInputBg1.value, colorInputBg2.value, false);
 
     });
   }
-    if (colorInputBg2) {
+  if (colorInputBg2) {
     colorInputBg2.value = currentBg2;
     colorInputBg2.addEventListener("input", () => {
       changeDesktopColor(colorInputBg1.value, colorInputBg2.value, false);
@@ -239,7 +252,7 @@ function initSettingsLogic(winEl) {
   }
 
 
- }
+}
 
 openSettingsBtn.addEventListener("click", () => {
   if (!settingsWin) {

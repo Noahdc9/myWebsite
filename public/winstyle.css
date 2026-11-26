@@ -171,3 +171,13 @@ textarea {
   height: auto;
   width: auto;
 }
+
+.win98-file-body {
+  margin-top: 5%;
+  margin-left: 5%;
+
+  width: 64px;
+  height: 64px;
+  content: url("imgs/winTheme/background/folderTiny.png");
+  cursor: url("imgs/winTheme/cursors/cursor_press.png"),grab;
+}
